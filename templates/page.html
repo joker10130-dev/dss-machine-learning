@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Sentiment Analysis</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css"
+        integrity="sha256-IvM9nJf/b5l2RoebiFno92E5ONttVyaEEsdemDC6iQA=" crossorigin="anonymous" />
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"
+        integrity="sha256-8zyeSXm+yTvzUN1VgAOinFgaVFEFTyYzWShOy9w7WoQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"
+        integrity="sha256-nZaxPHA2uAaquixjSDX19TmIlbRNCOrf5HO1oHl5p70=" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(180, 180, 180);
+        }
+    </style>
+
+    <style>
+        .text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container" style="padding-top: 50px; padding-left;: 30px">
+        <div class="row">
+            <div class="col-2">
+                <button type="button" class="btn btn-outline-dark" onclick="window.history.back();">Back</button>
+            </div>
+            <div class="col-6">
+                <h3 class="font-weight-light">{{store["StoreName"]}}</h3>
+            </div>
+            <div class="col-4">
+                <h3 class="font-weight-light">Comment score: {{store["Confidence"]}}</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-7">
+
+                <div class="row">
+                    <div class="col-12">
+                        <img src="{{store.ImageUrl}}" class="rounded" style="height: 500px; width: 100%;padding: 30px">
+
+                    </div>
+                </div>
+                <!--canvas id="myChart" width="400" height="400"></canvas-->
+
+                <div class="row" style="padding: 30px">
+                    <div class="col-7">
+                        <h3 class="font-weight-light">Food type: <h4> {{ store["Type"] }}</h4>
+                        </h3>
+                    </div>
+                    <div class="col-5">
+                        <h3 class="font-weight-light">Price: <h4> {{ store["Price"] }}</h4>
+                        </h3>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-8">
+                        <h3 class="font-weight-light">Number of comment: <h4> {{ store["Count"] }}</h4>
+                        </h3>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-5">
+                <div class="row" style=" padding: 30px;">
+                    <div class="col-12 rounded shadow bg-white overflow-auto" style="height: 750px; padding: 20px;">
+                        <div style="padding-bottom: 10px;">
+                            <h3>Customer review comment</h3>
+                        </div>
+                        {% for item in items %}
+                        <div class="card"
+                            style=" height: 100px; margin-bottom: 20px; padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        Comment score: {{item.Confidence}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 ">
+                                    <div class="text ">
+                                        {{ item.Comment }}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Scatter Dataset',
+                    data: [{
+                        x: -10,
+                        y: 0
+                    }, {
+                        x: 0,
+                        y: 10
+                    }, {
+                        x: 10,
+                        y: 5
+                    }]
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        type: 'linear',
+                        position: 'bottom'
+                    }]
+                }
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>

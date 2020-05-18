@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sentiment Analysis</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <img
+            src="https://calories-info.com/site/assets/files/1173/mango.650x0.jpg"
+            class="img-fluid"
+            style="height: 200px;"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div
+          class="col-12 text-center"
+          style="margin-top: 30px; margin-bottom: 30px;"
+        >
+          <h3>Restaurant Review Ranking</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Store name</th>
+                <th scope="col" class="text-center">Confidence</th>
+                <th scope="col" class="text-center">Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in items %}
+              <tr
+                onclick="alert({{item.ID}});window.location.href = '/D/{{item.ID}}'; "
+              >
+                <td>{{item.StoreName}}</td>
+                <td class="text-center">{{item.Confidence}}</td>
+                <td class="text-center">{{item.Rating}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-12 text-center"
+          style="margin-top: 30px; margin-bottom: 30px;"
+        >
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdSNucoTkMIh0up5MOc0_MakOMtsDkUJC86V5E6sECUDiAp_Q/viewform"
+            ><h3>You can review the restaurant here</h3></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
