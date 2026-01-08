@@ -224,7 +224,7 @@ terminado==0.8.2
 testpath==0.4.2
 toolz==0.10.0
 tornado==6.5
-tqdm==4.36.1
+tqdm==4.66.3
 traitlets==4.3.3
 typed-ast==1.4.1
 unicodecsv==0.14.1
